@@ -2,14 +2,15 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+from .forms import CustomerForm
 
-from .models import Choice, Question
+from .models import Choice, Question, Formulario
 
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
-    
+
     # tem aver com o de cima 
     def get_queryset(self):
         """Return the last five published questions."""
@@ -40,3 +41,16 @@ def vote(request, question_id):
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
+
+def formulario(request):
+    form = CustomerForm()
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+        if form.is_valid:
+            form.save()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'polls/form.html', context)

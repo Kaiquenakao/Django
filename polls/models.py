@@ -31,3 +31,6 @@ class Choice(models.Model):
         return self.choice_text
     
 
+class Formulario(models.Model):
+    nome = models.CharField(max_length=20)
+    sobrenome = models.CharField(max_length=20)
