@@ -5,3 +5,4 @@ class CustomerForm(ModelForm):
     class Meta:
         model = Formulario
         fields = ['nome', 'sobrenome']
+

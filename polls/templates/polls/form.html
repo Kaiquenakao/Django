@@ -6,11 +6,13 @@
         <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
     </head>
 
-
+    <script src="{% static 'js/main.js'%}" defer></script>
     <body>
         <form action="{% url 'polls:formulario' %}" method="POST">
             {% csrf_token %}
-            {{ form }}
+            {{ form1 }}
+            {{ form2 }}
+
             <button class="btn btn-primary">Enviar</button>
         </form>
     </body>
