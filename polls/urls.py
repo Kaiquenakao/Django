@@ -12,6 +12,8 @@ urlpatterns = [
 
     path('formulario/', views.formulario, name='formulario'),
 
+
+    path('data/', views.load_post_data_view, name='posts-data'),
     path('index/', views.indextwo, name="indextwo"),
     path('hello-world/', views.hello_world_view, name='hello-world'),
 ]

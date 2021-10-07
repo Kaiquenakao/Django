@@ -3,7 +3,9 @@ from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+
 from django.http import JsonResponse
+from django.core import serializers
 
 from .forms import CustomerForm
 
@@ -69,6 +71,10 @@ def formulario(request):
 def indextwo(request):
     return render(request, 'polls/indextwo.html')
 
+def load_post_data_view(request):
+    qs = Profile.objects.all()
+    data = serializers.serialize('json', qs) # serializando
+    return JsonResponse({'data': data})
 
 def hello_world_view(request):
-    return JsonResponse({'text': 'hello world'})    
+    return JsonResponse({'text': 'hello world 2x'})        
