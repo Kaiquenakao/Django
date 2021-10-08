@@ -73,7 +73,16 @@ def indextwo(request):
 
 def load_post_data_view(request):
     qs = Profile.objects.all()
-    data = serializers.serialize('json', qs) # serializando
+    data = []
+    for obj in qs:
+        item = {
+            'id': obj.id,
+            'name': obj.name,
+            'email': obj.email
+        }
+        data.append(item)
+
+    # data = serializers.serialize('json', qs) # serializando
     return JsonResponse({'data': data})
 
 def hello_world_view(request):
