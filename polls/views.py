@@ -7,9 +7,9 @@ from django.views import generic
 from django.http import JsonResponse
 from django.core import serializers
 
-from .forms import CustomerForm
+from .forms import CustomerForm, ProfileForm
 
-from .models import Choice, Question, Formulario, Profile
+from .models import Choice, Question, Profile
 
 
 class IndexView(generic.ListView):
@@ -68,8 +68,20 @@ def formulario(request):
     return render(request, 'polls/form.html', context)
 
 
-def indextwo(request):
+"""
+    def indextwo(request):
     return render(request, 'polls/indextwo.html')
+"""
+
+def post_list_and_create(request):
+    form = ProfileForm(request.POST or None)
+    if request.is_ajax():
+        if form.is_valid():
+            form.save()
+    context = {
+        'form': form,
+    }
+    return render(request, 'polls/indextwo.html', context)
 
 def load_post_data_view(request):
     qs = Profile.objects.all()
@@ -87,3 +99,11 @@ def load_post_data_view(request):
 
 def hello_world_view(request):
     return JsonResponse({'text': 'hello world 2x'})        
+
+
+
+def chartjs(request):
+    context = {
+        'questions': Question.objects.get(pk=1).choice_set.all()
+    }
+    return render(request, 'polls/chartjs.html', context)

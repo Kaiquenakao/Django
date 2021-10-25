@@ -4,6 +4,13 @@ const helloWorldBox = document.getElementById('hello-world')
 const postsBox = document.getElementById('posts-box')
 const spinnerBox = document.getElementById('spinner-box')
 
+const postForm = document.getElementById('post-form')
+const name = document.getElementById('id_name')
+const email = document.getElementById('id_email')
+const bio = document.getElementById('id_bio')
+const csrf = document.getElementsByName('csrfmiddlewaretoken')
+console.log('csrf', csrf)
+
 $.ajax({
     type: 'GET', 
     url: '/polls/hello-world/', // wtf
@@ -56,4 +63,28 @@ $.ajax({
     error: function(error){
         console.log(error)
     }
+})
+
+
+postForm.addEventListener('submit', e=>{
+    e.preventDefault()
+    var formData = $("post-form").serialize().split("&");
+    console.log("aqui" + formData );
+    $.ajax({
+        type: 'POST',
+        url: '',
+        data: {
+            'csrfmiddlewaretoken': csrf[0].value,
+            'name': name.value,
+            'email': email.value,
+            'bio': bio.value
+        },
+        success: function(response){
+            console.log(response)
+
+        },
+        error: function(erro){
+            console.log(error)
+        }
+    })
 })

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <canvas id="line-chart"></canvas>
+
+    <script>
+        $(document).ready(function(){
+        let ctx = document.getElementById("line-chart");
+        // type, data, options
+        let chartGraph = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: [{% for question in questions %}'{{ question.choice_text }}',{% endfor %}],
+                datasets: [{
+                    label: 'Título da questão',
+                    data: [{% for question in questions %}'{{ question.votes }}',{% endfor %}],
+                    backgroundColor: "green",
+                    barThickness: 80,
+                }]
+            }
+        });
+
+    });
+    </script>
+
+
+</body>
+</html>
